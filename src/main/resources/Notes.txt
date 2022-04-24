@@ -54,5 +54,4 @@ in UserMgmtConfig class .
 	Check the CustomInMemoryUserDetailsService which is creating a list of CustomUserDetails
 	in the memory..and the loadByUsername method searches thorugh the list of users.
    	
-
-	
+This Project is excluding the DataSourceAutocconfig.class as we have passed  in the @SpringBootApplication annotation.
