@@ -39,7 +39,20 @@ with the name you have given.
 	
 	//Spring defined basic subclass that implements GrantedAUthority
 	GrantedAuthority g2= new SimpleGrantedAuthority("READ");
+**
 
+<New Content>
+this example has a setup of fetching User Data from RDBMS an dcreate jpa entities using JpaUser
+which is being given JdbcUserDetails and which connects it with InMomeoryUserDetailsManager from @Bean method 
+in UserMgmtConfig class .
+
+<->UserDetailsService :- The component which used by the AUthenication Provider to fetch the
+	UserDetaisl Object based on the username provide to it.
+	It contains only 1 method"UserDetails loadByUserName(String username)".
+	if user doesn't exist it throws UsernameNotFoundException which is a RunTimeException.
 	
+	Check the CustomInMemoryUserDetailsService which is creating a list of CustomUserDetails
+	in the memory..and the loadByUsername method searches thorugh the list of users.
+   	
 
 	
