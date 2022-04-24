@@ -12,17 +12,17 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import com.example.demo.components.CustomUserDetails;
+
 @Configuration
 public class UserManagementConifg {
 
 	@Bean
 	public UserDetailsService userDetailsService()
 	{
-		List<UserDetails> users= new ArrayList<>();
-		users.add(User.withUsername("rahul1").password("rahul")
-				.authorities("read").build());
-		UserDetailsService userDetailsService=
-				new InMemoryUserDetailsManager(users);
+		CustomUserDetails userDetails=new CustomUserDetails();
+		UserDetailsService userDetailsService= 
+				new InMemoryUserDetailsManager(userDetails);
 		
 		return userDetailsService;
 	}

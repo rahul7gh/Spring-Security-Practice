@@ -1,0 +1,45 @@
+1.AuthenticationFilter:- Intercepts the request and Gives to AuthManage.
+2.AuthenticationManager:- Keeps track of Authprovider and gives request to it.
+3.AuthenticationProvder:- This is the component that actually holds logic for
+	authentiation i.e the checking logic is here.It uses 4 and 5 below for some help.
+4.UserDetailsService:- this is used by AuthenticationProvider to fetch the 
+	UserDetails Object by the Username that came in the request.
+5. PasswordEncoder:- This is ued to encrpty the password that came with request and 
+	comparing the available password in our Reporsitry.
+	
+	Above Five are most imp high level componets that manage spring security .
+	
+6.UserDetailsManager :-Extends the USerDetailsService Contract. Provide functionality of Managing UserDetails Objects 
+	such as adding,deleting, Modifying.
+	
+	****All above are interfaces / contracts when we use concrete sub classes to iNstatiate 
+	they gets used to perform actual operations.So spring has just coupled the interface
+	references and the actual working depends n which objects you bind to those references.
+	****
+7. UserDetails:- this is the interface which spring recognizes as User Entity.
+	so you put your data using it so that framework will understand it.
+
+8. GrantedAUthority:- This Interface is what spring recognizes as an action that a user
+	is allowed to do. SO we can associates a set of authorities with a user using List of GrantedUAthorities.
+	***Spring Enforces tat a user must have at least authority even if you don't want 
+	it or may not use it.
+
+<--------------------**---------------------->
+<->UserDetails interface
+has methods to get username,credentials,authorities and 4 method to work with some 
+useful properties such as locking,expiring,etc.
+
+<->GrantedAUthorities
+It just has a single method "STring getAUthority();" i.r just a name for authiority is sufficint
+for it to be used; Later you can difeing specific Rules that user can do and assoicaite thme
+with the name you have given.
+
+** //Using Lambda expr:- can be used as it has only one abstract method.
+	GrantedAuthority g1= () -> "READ";
+	
+	//Spring defined basic subclass that implements GrantedAUthority
+	GrantedAuthority g2= new SimpleGrantedAuthority("READ");
+
+	
+
+	

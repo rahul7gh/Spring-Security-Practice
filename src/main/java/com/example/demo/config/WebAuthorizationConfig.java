@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Configuration
 public class WebAuthorizationConfig extends WebSecurityConfigurerAdapter {
@@ -15,7 +16,7 @@ public class WebAuthorizationConfig extends WebSecurityConfigurerAdapter {
 		(SessionCreationPolicy.STATELESS);		
 		System.out.println("Ayyyy bho!!");
 		
-		
+		SimpleGrantedAuthority s= new SimpleGrantedAuthority("gg");
 	}
 	
 }
