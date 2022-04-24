@@ -20,9 +20,14 @@ public class UserManagementConifg {
 	@Bean
 	public UserDetailsService userDetailsService()
 	{
-		CustomUserDetails userDetails=new CustomUserDetails();
+		UserDetails user1=new CustomUserDetails("gg","plox");
+		UserDetails user2=new CustomUserDetails("rahul","pohare");
+		UserDetails user3=new CustomUserDetails("anket","rindhe");
+		
+		List<UserDetails> list=List.of(user1,user2,user3);
+		
 		UserDetailsService userDetailsService= 
-				new InMemoryUserDetailsManager(userDetails);
+				new InMemoryUserDetailsManager(list);
 		
 		return userDetailsService;
 	}

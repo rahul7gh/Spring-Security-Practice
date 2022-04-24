@@ -14,6 +14,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomUserDetails implements UserDetails{
 
+	private String username;
+	private String password;
+	
+	public CustomUserDetails()
+	{
+		super();
+	}
+	public CustomUserDetails(String username,String password)
+	{
+		this.username=username;
+		this.password=password;
+	}
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 //		List<GrantedAuthority> auths=new ArrayList<>();
@@ -25,13 +39,13 @@ public class CustomUserDetails implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return "12345";
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
 		
-		return "bill";
+		return this.username;
 	}
 
 	@Override
