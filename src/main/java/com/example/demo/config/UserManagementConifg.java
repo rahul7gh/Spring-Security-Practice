@@ -21,14 +21,15 @@ public class UserManagementConifg {
 	public UserDetailsService detailsService()
 	{
 		System.out.println("Bean Created");
-		String userQuery="select username,password,enabled from user where username= ?";
-		String authQuery="select username,authority from user u,authorities a where u.id=a.id and  username= ?";
+		String userQuery="select id,password,enabled from user where id= ?";
+		String authQuery="select u.id,authority from user u,authorities a where u.id=a.id and  u.id= ?";
 		UserDetailsService userDetailsService= new JdbcUserDetailsManager(dataSource);
 		JdbcUserDetailsManagerConfigurer jdbcConfig=
 		
 		new JdbcUserDetailsManagerConfigurer<>((JdbcUserDetailsManager)userDetailsService);
 		jdbcConfig.usersByUsernameQuery(userQuery);
 		jdbcConfig.authoritiesByUsernameQuery(authQuery);
+		System.out.println("Bean Created");
 		return jdbcConfig.getUserDetailsService();
 	}
 	@Bean

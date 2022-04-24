@@ -5,3 +5,10 @@ spring:
     url: jdbc:mysql://localhost:3306/spring
     username: root
     password: root
+ 
+logging:
+  level:
+   org:
+    springframework:
+      secuirty: DEBUG
+    
