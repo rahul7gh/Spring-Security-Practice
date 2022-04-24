@@ -15,8 +15,7 @@ import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
  * 
  */
 
-@SpringBootApplication(
-		exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication()
 public class AuthenticationLayerApplication {
 
 	public static void main(String[] args) {

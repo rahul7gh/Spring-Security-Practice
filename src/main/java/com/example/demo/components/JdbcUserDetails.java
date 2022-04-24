@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -16,8 +17,8 @@ public class JdbcUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> auths= new ArrayList<>();
-		auths.add(() -> this.jpaUser.getAuthority());
-		
+//		auths.add(() -> this.jpaUser.getAuthority());
+		auths.add(new SimpleGrantedAuthority("READ"));
 		return auths;
 	}
 

@@ -3,14 +3,14 @@ package com.example.demo.components;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "users")
+@Entity(name = "user")
 public class JpaUser {
 
 	@Id
 	private Long id;
 	private String username;
 	private String password;
-	private String authority;
+	private boolean enabled;
 	
 	public JpaUser()
 	{
@@ -18,12 +18,12 @@ public class JpaUser {
 	}
 	
 	
-	public JpaUser(Long id, String username, String password, String authority) {
+	public JpaUser(Long id, String username, String password, boolean enabled) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.authority = authority;
+		this.enabled = enabled;
 	}
 
 
@@ -45,15 +45,15 @@ public class JpaUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getAuthority() {
-		return authority;
+	public boolean getEnabled() {
+		return enabled;
 	}
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	@Override
 	public String toString() {
-		return "JpaUser [id=" + id + ", username=" + username + ", password=" + password + ", authority=" + authority
+		return "JpaUser [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ "]";
 	}
 	

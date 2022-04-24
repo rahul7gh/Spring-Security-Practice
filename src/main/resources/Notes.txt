@@ -55,3 +55,16 @@ in UserMgmtConfig class .
 	in the memory..and the loadByUsername method searches thorugh the list of users.
    	
 This Project is excluding the DataSourceAutocconfig.class as we have passed  in the @SpringBootApplication annotation.
+
+<NewContent>
+<->UserDetailsManager:- interface that extends UserDetailsService. This just adds few methods that allows
+you directly handle the UserManagement activities, such as addition,deletion,modification.
+ 
+Spring provides several implementations of these such as InMemoryUserDetailsManage and JdbcUserDetailsManager.
+
+When the User is authenticated Successfully the details are updated in the Security Context by the Authentication filter.
+
+<->JdbcUserDetailsManager:- allows user manangement whatever RDBMS you configure it with;
+
+Expects two Tables from Users(username,password,enabled) and authorities
+
