@@ -16,6 +16,7 @@ public class WebAuthorizationConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy
 		(SessionCreationPolicy.STATELESS);		
 		System.out.println("Yarr Bhai! Ayyyy bho!!");
+		http.authorizeRequests().anyRequest().authenticated();
 	}
 	
 }

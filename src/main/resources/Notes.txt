@@ -67,4 +67,34 @@ When the User is authenticated Successfully the details are updated in the Secur
 <->JdbcUserDetailsManager:- allows user manangement whatever RDBMS you configure it with;
 
 Expects two Tables from Users(username,password,enabled) and authorities
+Please refer to the @Bean provided in USerMgmtConfig, i have given two specefic quries to
+fetch userdeata and the authorities from MySql tables;
 
+<->New Content
+
+<->PasswordEncoder:- Responsibility of managing and Validating password .
+two abstract methods :- String encode(CharSequence rawPasswd) and boolean matches(CharSequence raw, String encoded)  
+encode is used at start to get hashed reprsentation while matches is used by authProvider to check if incoming msg is same 
+as encoded passwords 
+
+Theres one more method upgradeEncoding which by deafult returns false but if set to true
+then the encoded password is again encoded to better security.
+
+Spring provides some implementations for the PassWord enoder one of which is NoOpPasswordEncoder which just simply stores the passwords
+as plain text.
+so the methods would look like something as follows:-
+	encode(raw){ return raw.toString()}
+	matches(raw,encoded) {return raw.equals(encoded)}
+Theress basically what we say is the encoding is same a password itself.
+
+<->StandardPasswordEncoder:- Used Sha256 to encode. deperecated now as we don't consider to strong enough anymore.
+<->Pbkdf2PasswordEncoder:- Uses password-based key derivation function 2.
+<->BcryptPasswordEncoder:- Uses a bcrypt strong hashing function to encode the password
+<->ScryptPasswordEncoder:- Uses an scrypt hashing function to encode.
+check @Bean Password encoder for exmples.
+
+
+
+
+but in this example we'll implement our own
+check encoders.Sha512PasswordEncoder;	

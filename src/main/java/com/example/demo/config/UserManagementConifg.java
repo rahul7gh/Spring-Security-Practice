@@ -7,8 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @Configuration
@@ -35,7 +39,23 @@ public class UserManagementConifg {
 	@Bean
 	public PasswordEncoder passwordEncoder()
 	{
-		return NoOpPasswordEncoder.getInstance();
+//		 NoOpPasswordEncoder.getInstance();
+//		no contrutor beacuse it's a singleton class i.e at any moment there will be onle
+//		one instanace in memory, which you access by getInstance();
+		
+//		PasswordEncoder p= new StandardPasswordEncoder();
+//		PasswordEncoder p= new StandardPasswordEncoder("secret");
+//		you can pass secret string that will be used in hashing process
+		
+//		PasswordEncoder p= new Pbkdf2PasswordEncoder();
+//		there is also a overloaded fucntin which you can use to create more strong passwords.
+		
+//		PasswordEncoder p= new BCryptPasswordEncoder();
+//		there is also a overloaded fucntin which you can use to create more strong passwords.
+	
+//		PasswordEncoder p= new SCryptPasswordEncoder();
+//		there is also a overloaded fucntin which you can use to create more strong passwords.
+		return new BCryptPasswordEncoder();
 	}
 	
 }
