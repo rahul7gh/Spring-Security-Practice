@@ -1,5 +1,8 @@
 package com.example.demo.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @Configuration
@@ -56,6 +58,25 @@ public class UserManagementConifg {
 //		PasswordEncoder p= new SCryptPasswordEncoder();
 //		there is also a overloaded fucntin which you can use to create more strong passwords.
 		return new BCryptPasswordEncoder();
+	}
+	
+	
+//	The keys of the folllowing maps are actuually the prfix that must in every password in your database
+//	so if the database password for your user has a prefxi of bcrypt then the delgatingpassencoder
+//	invokes the bcrypt instance;
+//	if you have not set the password prefix for your passwor you may run into
+//	null pointer/ no passwordenoder mapped to id null key errors.
+	@Bean
+	public PasswordEncoder delegatingPassEncoder()
+	{
+//		Map<String,PasswordEncoder> map=new HashMap<>();
+//		map.put("noop", NoOpPasswordEncoder.getInstance());
+//		map.put("bcrypt", new BCryptPasswordEncoder());
+//		
+//		return new DelegatingPasswordEncoder("bcrypt", map);
+		
+//		Spring provided Delegating passwod encoder that defaults to Brcypt.
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	
 }

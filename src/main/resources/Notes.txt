@@ -93,6 +93,15 @@ Theress basically what we say is the encoding is same a password itself.
 <->ScryptPasswordEncoder:- Uses an scrypt hashing function to encode.
 check @Bean Password encoder for exmples.
 
+<-> New Content
+What if you find a problem with password encoder algo you use currently adn you now change the
+algorith for new users...but don't want to update the existing users password ..so how do you invoke correct password
+encoder during authentication....DelegatingPasswordEncoder is the answer.
+The hash starts with the name of algorith so based on that it invokes crrect password encoder .
+It maintains  a map of key values where value is the reference to the specific password encoder.
+For examplle refer @Bean delgatingPassEncoder() in userMgmtConfig.  
+You can define your own map  or use the Delegatingpassword encoder given by Sprinng itself.
+
 
 
 
