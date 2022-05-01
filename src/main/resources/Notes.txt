@@ -86,6 +86,8 @@ so the methods would look like something as follows:-
 	encode(raw){ return raw.toString()}
 	matches(raw,encoded) {return raw.equals(encoded)}
 Theress basically what we say is the encoding is same a password itself.
+but in this example we'll implement our own
+check encoders.Sha512PasswordEncoder;	
 
 <->StandardPasswordEncoder:- Used Sha256 to encode. deperecated now as we don't consider to strong enough anymore.
 <->Pbkdf2PasswordEncoder:- Uses password-based key derivation function 2.
@@ -104,6 +106,30 @@ You can define your own map  or use the Delegatingpassword encoder given by Spri
 
 
 
+<->New Content
+The SPing provides a default authetication implementaion which revolves around Username and Password.
+in real world you may need additional steps suchas sms or email otp,additional keys from file,etc.
+SO Spring security uses Authentication Provider to implement teh authentication flow
+which involves username password...
+You can write your own custom flow y implemting the authentication provider interface.
 
-but in this example we'll implement our own
-check encoders.Sha512PasswordEncoder;	
+<->Auhentication Interface:- Reprsents the authentication request itself which holds the details of entity requesting authentication.
+The user requesting access to the application is Called as Principal.
+SO this Authentication i/f extedns the Principal i/f.
+
+ Principal i/f:- only getName() method:- Available in core java.security api. someonw who's requesting access at least must have a name i.e
+ the identifier used to identify it which may be id,username,etc.
+ 
+ Authentication I/f extends Principal:-
+ 	@Override getName():- Id of user
+ 	getCredentials():- user must have a secret:- password,code,fingerprint,etc. 
+ 	getAuthorities():- set of privileges for user:- must have at least 1 privilage.
+ 	getDetails():- Any additional info related to user provided here
+ 	isAuthenticated():- status of the authentication Object.
+ 	
+ check config.CustomAUtenticationProvider for example and details. 
+ 	 
+
+
+
+

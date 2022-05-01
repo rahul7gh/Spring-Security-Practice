@@ -1,19 +1,15 @@
 package com.example.demo.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
@@ -38,27 +34,27 @@ public class UserManagementConifg {
 		System.out.println("Bean Created");
 		return jdbcConfig.getUserDetailsService();
 	}
-	@Bean
-	public PasswordEncoder passwordEncoder()
-	{
-//		 NoOpPasswordEncoder.getInstance();
-//		no contrutor beacuse it's a singleton class i.e at any moment there will be onle
-//		one instanace in memory, which you access by getInstance();
-		
-//		PasswordEncoder p= new StandardPasswordEncoder();
-//		PasswordEncoder p= new StandardPasswordEncoder("secret");
-//		you can pass secret string that will be used in hashing process
-		
-//		PasswordEncoder p= new Pbkdf2PasswordEncoder();
-//		there is also a overloaded fucntin which you can use to create more strong passwords.
-		
-//		PasswordEncoder p= new BCryptPasswordEncoder();
-//		there is also a overloaded fucntin which you can use to create more strong passwords.
-	
-//		PasswordEncoder p= new SCryptPasswordEncoder();
-//		there is also a overloaded fucntin which you can use to create more strong passwords.
-		return new BCryptPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder()
+//	{
+////		 NoOpPasswordEncoder.getInstance();
+////		no contrutor beacuse it's a singleton class i.e at any moment there will be onle
+////		one instanace in memory, which you access by getInstance();
+//		
+////		PasswordEncoder p= new StandardPasswordEncoder();
+////		PasswordEncoder p= new StandardPasswordEncoder("secret");
+////		you can pass secret string that will be used in hashing process
+//		
+////		PasswordEncoder p= new Pbkdf2PasswordEncoder();
+////		there is also a overloaded fucntin which you can use to create more strong passwords.
+//		
+////		PasswordEncoder p= new BCryptPasswordEncoder();
+////		there is also a overloaded fucntin which you can use to create more strong passwords.
+//	
+////		PasswordEncoder p= new SCryptPasswordEncoder();
+////		there is also a overloaded fucntin which you can use to create more strong passwords.
+//		return new BCryptPasswordEncoder();
+//	}
 	
 	
 //	The keys of the folllowing maps are actuually the prfix that must in every password in your database
@@ -69,6 +65,8 @@ public class UserManagementConifg {
 	@Bean
 	public PasswordEncoder delegatingPassEncoder()
 	{
+	
+		
 //		Map<String,PasswordEncoder> map=new HashMap<>();
 //		map.put("noop", NoOpPasswordEncoder.getInstance());
 //		map.put("bcrypt", new BCryptPasswordEncoder());
@@ -76,7 +74,16 @@ public class UserManagementConifg {
 //		return new DelegatingPasswordEncoder("bcrypt", map);
 		
 //		Spring provided Delegating passwod encoder that defaults to Brcypt.
+//		PasswordEncoder encoder=PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	
+	
 	}
+	@Bean
+	public AuthenticationProvider authenticationProvider()
+	{
+		return new CustomAuthenticationProvider();
+	}
+	
 	
 }
