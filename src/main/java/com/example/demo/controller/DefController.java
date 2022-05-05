@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -100,7 +105,36 @@ public class DefController {
 		
 	}
 	
-	
+	/*
+	 * To pass the securityContextHolder to your own thread you can use the instance
+	 * of DelegatingSecurityContextRunnable which is managed by SPirng. In case your
+	 * thread returns some value you can Use DelegatingSecurtitContextCalable<T>
+	 * which Callsback the original thread and return ths value.
+	 */
+	@GetMapping("/ciao")
+	public String callableDemo()
+	{
+		Callable<String> c=new DelegatingSecurityContextCallable<>(
+				new Callable<String>() {
+					@Override
+					public String call() throws Exception {
+					SecurityContext ctx= SecurityContextHolder.getContext();
+						return "OLAa!!! " + ctx.getAuthentication().getName();
+					}
+				});
+		ExecutorService e= Executors.newCachedThreadPool();
+		
+		try {
+			return "Yosh" + e.submit(c).get();
+		} catch (InterruptedException e1) {
+			
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			
+			e1.printStackTrace();
+		}
+		return "Galat Hogaya!";
+	}
 	
 	
 	@GetMapping("/")
