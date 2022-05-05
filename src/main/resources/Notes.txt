@@ -128,6 +128,25 @@ SO this Authentication i/f extedns the Principal i/f.
  	isAuthenticated():- status of the authentication Object.
  	
  check config.CustomAUtenticationProvider for example and details. 
+ 
+ <New-Content>:- SecurityContext is the object which holds the succesfully Authenticated Authentication
+ instance.
+ After Successful authentication AUthentication Provider return to Auth Manager which gives the AUthentication Object to Authentication
+ Filter,
+ Auth Filtersores the object in Secuirty Context and Gives the request Object to Controller.
+ SecurityContext-i/f:- is has to methods setAuthentication, getAUthentication.
+ 
+ How Security Context is Managed?:
+ SecurityContextHolder is the Manager Object. It has 3 strategies to manage the Seurity ontext.
+ 	1.MODE_THREADLOCAL:- each thread stores it's own detils in security context. In thread-per request this is 
+ 	a commonly used.Each request has an indivisual thread
+ 	2.MODE_INHERITABLETHREADLOCAL:- same as above. but also instructs spring to copy context to next thread in case of asynchronous method.
+ 	which means a thread running with @async method inehrits the context.
+ 	3.MODE_GLOBAL:- ALl the treads of application sees the Same Security Context Instance.
+ 	
+ 	visit controller.DefController. "/secconfig" GetMapping.
+ 
+ 
  	 
 
 

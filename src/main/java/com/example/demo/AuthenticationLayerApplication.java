@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /*
  * Bhi meri baat sunnn...wheneevr you are changing anything that is being managed by Spring
@@ -15,6 +16,9 @@ import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
  * 
  */
 
+// Keeping any extra nnotations configs in this main class is dicouraged .we'd like to have responsibilites spread out to different classs
+//so put this on any other config class!.
+//@EnableAsync
 @SpringBootApplication()
 public class AuthenticationLayerApplication {
 

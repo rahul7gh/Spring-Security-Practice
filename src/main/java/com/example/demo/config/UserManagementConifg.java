@@ -2,11 +2,14 @@ package com.example.demo.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -14,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @Configuration
+@EnableAsync
 public class UserManagementConifg {
 
 	@Autowired
@@ -83,6 +87,21 @@ public class UserManagementConifg {
 	public AuthenticationProvider authenticationProvider()
 	{
 		return new CustomAuthenticationProvider();
+	}
+	
+	@Bean
+	public InitializingBean initCtx()
+	{
+		InitializingBean bean= new InitializingBean() {
+			
+			@Override
+			public void afterPropertiesSet() throws Exception {
+				SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+				
+			}
+		};
+		
+		return bean;
 	}
 	
 	

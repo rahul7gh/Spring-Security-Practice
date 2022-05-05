@@ -1,6 +1,9 @@
 server:
   port: 8082
 spring:
+#  security:
+#   strategy: MODE_INHERITABLETHREADLOCAL
+ 
   datasource:
     url: jdbc:mysql://localhost:3306/spring
     username: root
