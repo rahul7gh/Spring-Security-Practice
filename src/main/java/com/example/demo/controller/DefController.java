@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,6 +16,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
+import org.springframework.security.concurrent.DelegatingSecurityContextExecutorService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -110,6 +112,9 @@ public class DefController {
 	 * of DelegatingSecurityContextRunnable which is managed by SPirng. In case your
 	 * thread returns some value you can Use DelegatingSecurtitContextCalable<T>
 	 * which Callsback the original thread and return ths value.
+	 * In This Example we have Deorated the task as DelegatingSecurityContext which means
+	 * we are managing SeucrityContext delegation from within the task.
+	 * Next example method provides a way to manage the delegation from the thread pool Itself.
 	 */
 	@GetMapping("/ciao")
 	public String callableDemo()
@@ -135,6 +140,32 @@ public class DefController {
 		}
 		return "Galat Hogaya!";
 	}
+	
+	/*
+	 * This example show a simple Callable Task which is on it's own. Then we are
+	 * decorating ExecutorService with DelegatingSecurityContext. so our thread
+	 * service will copy the security context to next thread before submitting the
+	 * task.
+	 */
+	
+	@GetMapping("/secctx3execpool")
+	public String secCtxFromExecutrThreadPool()
+	{
+		Callable<String> tsk1=() -> { return SecurityContextHolder.getContext()
+			.getAuthentication().getName();};
+			
+		ExecutorService e = Executors.newCachedThreadPool();
+		e= new DelegatingSecurityContextExecutorService(e);
+		
+		try {
+			return e.submit(tsk1).get();
+		} catch (InterruptedException | ExecutionException e1) {
+			
+			e1.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	
 	@GetMapping("/")
