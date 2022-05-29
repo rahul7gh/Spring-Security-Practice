@@ -79,11 +79,11 @@ public class DefController {
 	 */
 	
 	
-//	The Async is made to execute a task in background so it won't commuicate 
+//	The Async is made to execute a task in background so it won't communicate 
 //	directly with spring threads that are servicing the requests so your return statements
 //	won't work directly This is why we need to use CompletableFuture.
 	
-//	NOTE****The sce context gets passed to only threads cretaed by @Async because these are managed
+//	NOTE****The sce context gets passed to only threads created by @Async because these are managed
 //	by spring it self. Any user Created thread you'll have to handle the cotext passing yourselves.
 	
 	

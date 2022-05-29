@@ -17,7 +17,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class WebAuthorizationConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic();
+		http.httpBasic(
+				
+				c-> c.authenticationEntryPoint(new CustomAuthEntryPoint())
+				
+				);
 		http.sessionManagement().sessionCreationPolicy
 		(SessionCreationPolicy.STATELESS);		
 		System.out.println("Yarr Bhai! Ayyyy bho!!");

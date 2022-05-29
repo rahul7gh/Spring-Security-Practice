@@ -147,7 +147,19 @@ SO this Authentication i/f extedns the Principal i/f.
  	visit controller.DefController. "/secconfig" GetMapping.
  
  
- 	 
+ <New - Content>
+ How to share security context to threads that are crated by us and Spring is unaware of them...
+ DelegatingSecurityContextRunnable, DelegatingSecurityContextCallable can be uesd to decorate
+ our asynchrnous Task and they will be resposible to provide security context details.
+ 
+ 
+ There is a better way ..rather than managing propogation from a Task we can manage it from Thread Pool Itself.
+ 
+
+<-New Conenet>
+Using AUthenticatioEntryPoint we can customize the Response that gets sent out on
+Authentication failure;
+see CustomAuthEntryPoint class for example. 
 
 
 
